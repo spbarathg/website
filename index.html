@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#3D9B4E" />
+  <title>FORG — NOT FROG, JUST FORG.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="FORG – NOT FROG, JUST FORG. Welcome to the swamp of pure degeneracy. No thoughts, just vibes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FORG – NOT FROG, JUST FORG." />
+  <meta property="og:description" content="Welcome to the swamp of pure degeneracy. No thoughts, just vibes." />
+  <meta property="og:image" content="forg1.png" />
+  <meta property="og:url" content="#" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root{
+      --forg-green:#3D9B4E;
+      --black:#000000;
+      --white:#FFFFFF;
+      --container:1100px;
+      --radius:16px;
+      --shadow:0 6px 0 var(--black);
+      --gap:28px;
+      /* Dynamic hue controls for scroll-driven color shift */
+      --hue-base:136; /* base green hue */
+      --hue-shift:0;  /* added by JS, unitless degrees */
+      --hue-rotate:0deg; /* for filters */
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--black);
+      background:linear-gradient(180deg,
+        hsl(calc(var(--hue-base) + var(--hue-shift)) 100% 99%),
+        hsl(calc(var(--hue-base) + var(--hue-shift) + 30) 100% 97%)
+      );
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    img{display:block;max-width:100%;height:auto}
+
+    .container{
+      width:100%;
+      max-width:var(--container);
+      margin:0 auto;
+      padding:0 20px;
+      position:relative;
+      z-index:2;
+    }
+    section{padding:86px 0}
+    @media (min-width:768px){
+      section{padding:116px 0}
+    }
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:saturate(1.5) blur(6px);
+      border-bottom:2px solid var(--black);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--black);
+    }
+    .brand img{height:36px;width:auto}
+    .nav-links{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+    .nav-links a{
+      color:var(--black);
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      padding:8px 12px;
+      border:2px solid var(--black);
+      border-radius:999px;
+      transition:transform .15s ease, background-color .15s ease, color .15s ease;
+    }
+    .nav-links a:hover{transform:translateY(-1px);background:var(--black);color:#fff}
+
+    .hero{
+      text-align:center;
+      padding-top:56px;
+    }
+    .hero-visual{
+      width:min(420px,80vw);
+      margin:0 auto 24px;
+      animation:forg-breathe 5.5s cubic-bezier(.22,1,.36,1) infinite;
+      will-change:transform;
+    }
+    @keyframes forg-breathe{
+      0%{transform:translateY(0) scale(1) rotate(0deg)}
+      35%{transform:translateY(-6px) scale(1.03) rotate(.6deg)}
+      65%{transform:translateY(-6px) scale(1.03) rotate(-.6deg)}
+      100%{transform:translateY(0) scale(1) rotate(0deg)}
+    }
+    .hero h1{
+      font-family:"Sora", Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      font-size:clamp(28px,4.6vw,56px);
+      line-height:1.05;
+      margin:0 0 12px 0;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+    .hero p{
+      margin:0 auto 28px;
+      max-width:680px;
+      font-size:clamp(16px,2.5vw,18px);
+      opacity:.9;
+    }
+    .cta{
+      display:inline-block;
+      font-weight:700;
+      font-size:18px;
+      padding:16px 28px;
+      border-radius:999px;
+      color:#fff;
+      background:hsl(calc(var(--hue-base) + var(--hue-shift)) 45% 43%);
+      border:2px solid var(--black);
+      box-shadow:var(--shadow);
+      transform:translateY(0) scale(1);
+      transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+    }
+    .cta:hover{transform:translateY(-3px) scale(1.04)}
+    .cta:active{transform:translateY(2px) scale(.98); box-shadow:0 0 0 var(--black)}
+    .cta.alt{background:#fff;color:var(--black)}
+    .cta.alt:hover{background:var(--black);color:#fff}
+
+    .manifesto .section-title,
+    .story .section-title,
+    .cards .section-title{
+      text-align:center;
+      font-family:"Sora", Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      font-weight:700;
+      font-size:clamp(22px,3.2vw,32px);
+      margin:0 0 28px 0;
+    }
+    /* underline removed for cleaner minimal look */
+    .manifesto-grid{
+      display:grid;
+      gap:var(--gap);
+      align-items:center;
+    }
+    .manifesto-visual{
+      width:min(340px,70vw);
+      margin:0 auto;
+      opacity:.95;
+    }
+    .manifesto-copy{
+      background:#fff;
+      border:2px solid var(--black);
+      border-radius:var(--radius);
+      padding:22px 22px;
+      box-shadow:var(--shadow);
+    }
+    .manifesto-copy p{margin:0;font-size:16px}
+    @media (min-width:960px){
+      .manifesto-grid{grid-template-columns:1fr 1.2fr}
+      .manifesto-copy p{font-size:18px}
+    }
+
+    .story .lead{
+      max-width:780px;
+      margin:0 auto 24px;
+      text-align:center;
+      font-size:18px;
+    }
+    .story .logo{
+      width:min(460px,80vw);
+      margin:20px auto 0;
+      opacity:.95;
+    }
+
+    .cards-wrap{display:flex;flex-direction:column;gap:var(--gap)}
+    @media (min-width:900px){.cards-wrap{flex-direction:row}}
+    .card{
+      flex:1;
+      background:#fff;
+      border:2px solid var(--black);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-height:180px;
+      transform:translateZ(0) rotateX(0) rotateY(0);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{transform:translateY(-3px) rotateX(0deg) rotateY(0deg); box-shadow:0 12px 0 var(--black)}
+    .card h3{margin:0 0 6px 0;font-size:18px;font-weight:700}
+    .card p{margin:0;opacity:.9}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      font-weight:700;font-size:14px;padding:12px 16px;border-radius:999px;
+      color:var(--black);background:#fff;border:2px solid var(--black);
+      transition:transform .15s ease, background-color .15s ease, color .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:hsl(calc(var(--hue-base) + var(--hue-shift)) 45% 43%);color:#fff}
+    .addr{
+      display:flex;align-items:center;gap:10px;padding:12px 12px;
+      border:2px dashed var(--black);border-radius:12px;word-break:break-all;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New", monospace;
+      font-size:14px;background:#fff;
+    }
+    .copy{
+      margin-left:auto;background:var(--black);color:#fff;border:2px solid var(--black);
+      border-radius:10px;padding:8px 10px;font-weight:700;cursor:pointer;
+      transition:transform .15s ease, background-color .15s ease;
+    }
+    .copy:hover{transform:translateY(-1px)}
+    .copy.success{background:var(--forg-green); border-color:var(--black)}
+    .socials{display:flex;gap:10px}
+    .icon-btn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--black);border-radius:50%;color:var(--black);background:#fff;transition:transform .15s ease, background-color .15s ease, color .15s ease}
+    .icon-btn:hover{transform:translateY(-1px); background:var(--black); color:#fff}
+
+    footer{padding:48px 0 64px;text-align:center;opacity:.85;border-top:2px solid var(--black);margin-top:64px}
+
+    /* Lens flare spotlight (replaces blobs/grain) */
+    .lens{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .lens::before{
+      content:""; position:absolute; width:60vmax; height:60vmax; border-radius:50%;
+      transform:translate(-50%, -50%);
+      background:radial-gradient(closest-side,
+        hsla(calc(var(--hue-base) + var(--hue-shift)) 55% 45% / .10),
+        hsla(calc(var(--hue-base) + var(--hue-shift)) 55% 45% / 0)
+      );
+      left:var(--lens-x,50%); top:var(--lens-y,40%);
+      filter:blur(20px);
+      transition:left .08s ease, top .08s ease;
+    }
+
+    .floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .floater{position:absolute;width:80px;opacity:.5;filter:drop-shadow(0 6px 10px rgba(0,0,0,.1));transform:translateZ(0);will-change:transform}
+    @media (min-width:900px){.floater{width:110px}}
+    /* spin handled via JS for seamless composition */
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1; transform:translateY(0)}
+
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-visual,.floater{animation:none; transition:none}}
+  </style>
+</head>
+<body>
+  <!-- Lens flare spotlight -->
+  <div class="lens" aria-hidden="true"></div>
+
+  <div class="floaters" aria-hidden="true">
+    <img alt="" class="floater" id="floater-1" loading="lazy" />
+    <img alt="" class="floater" id="floater-2" loading="lazy" />
+    <img alt="" class="floater" id="floater-3" loading="lazy" />
+    <img alt="" class="floater" id="floater-4" loading="lazy" />
+  </div>
+
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="FORG Home">
+        <img id="brand-img" alt="FORG logo" src="forg1.png" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#manifesto">Manifesto</a>
+        <a href="#story">Story</a>
+        <a href="#buy">Buy</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="top" class="hero reveal">
+    <div class="container">
+      <img id="hero-img" class="hero-visual" alt="FORG — the extremely serious green creature" src="forg2.png" />
+      <h1>FORG – NOT FROG, JUST FORG.</h1>
+      <p>Welcome to the swamp of pure degeneracy.</p>
+      <a class="cta" href="#buy" id="cta-btn">BUY FORG NOW</a>
+    </div>
+  </main>
+
+  <section id="manifesto" class="manifesto reveal">
+    <div class="container">
+      <h2 class="section-title">No Thoughts, Just Vibes.</h2>
+      <div class="manifesto-grid">
+        <div>
+          <img id="manifesto-img" class="manifesto-visual" alt="FORG contemplating nothing in particular" loading="lazy" src="forg2.png" />
+        </div>
+        <div class="manifesto-copy">
+          <p>
+            Meet FORG, the evolution of the meme lifecycle: zero roadmap, zero promises, zero brain cells.
+            No utility, no advisors, no VC unlocks, no “community incentives” spreadsheets. Just immaculate
+            vibes, unhinged energy, and an amphibious refusal to take anything seriously. Markets are narratives.
+            Our narrative is simple: not frog. Just FORG and up only.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="story reveal">
+    <div class="container">
+      <h2 class="section-title">The Legend of FORG</h2>
+      <p class="lead">
+        Long ago, in the swamp, a creature looked at the chart and said, “FORG.” The world misheard “frog” (tragic).
+        The dev forgot tokenomics, the mod forgot sleep, the designer forgot kerning — and yet the line remembered
+        to go up. Thus FORG emerged: happy, dumb, unstoppable. No lore bloat. No complicated mythos. Just a green guy
+        and a collective decision to degen with taste.
+      </p>
+      <img id="logo-img" class="logo" alt="FORG wordmark" loading="lazy" src="forg1.png" />
+    </div>
+  </section>
+
+  <section id="buy" class="cards reveal">
+    <div class="container">
+      <h2 class="section-title">Become FORG.</h2>
+      <div class="cards-wrap">
+        <article class="card">
+          <h3>Get FORG</h3>
+          <p>Acquire your swamp pass and ascend to enlightened nonsense.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="#" target="_blank" rel="noopener noreferrer">Buy on Uniswap</a>
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Buy on Raydium</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Contract Address</h3>
+          <div class="addr">
+            <span id="contract">0xFORG...FORG</span>
+            <button class="copy" id="copy-btn" type="button" aria-live="polite">Copy</button>
+            <span id="copy-spark" aria-hidden="true" style="position:relative;display:inline-block;width:0;height:0"></span>
+          </div>
+          <p style="opacity:.7">Double‑check before aping. If it doesn’t say FORG, it’s not FORG.</p>
+        </article>
+
+        <article class="card">
+          <h3>Socials</h3>
+          <p>Enter the swamp. Bring memes.</p>
+          <div class="socials" aria-label="Social links">
+            <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="FORG on X">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 3H21l-6.545 7.48L22.5 21h-5.93l-4.64-5.943L6.5 21H3.744l7.037-8.04L2.5 3h6.086l4.19 5.53L18.244 3Zm-2.08 16.2h1.64L8.91 5.7H7.17l8.994 13.5Z"/>
+              </svg>
+            </a>
+            <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="FORG on Telegram">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.944 4.55c.34-1.35-.5-1.87-1.36-1.54-1.16.45-3.02 1.19-6.54 2.63-4.69 1.95-9.11 3.82-13.9 5.84-1.18.5-1.12 1.2-.21 1.5 1.63.53 3.78 1.16 3.78 1.16s1.4 4.27 2.12 6.33c.28.82.55 1.04 1.18.1.76-1.11 2.07-2.86 2.07-2.86s3.74 2.74 5.6 3.93c.82.53 1.5.26 1.72-.76.31-1.44 2.8-13.17 3.16-14.98Zm-12 9.2 1.86 1.38 4.56-6.88c.22-.34-.077-.5-.33-.28l-6.09 5.78Z"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div>&copy; <span id="year"></span> FORG</div>
+    </div>
+  </footer>
+
+  <script>
+    /* -- Performance / capability detection -- */
+    const PERF = (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const deviceMemory = (navigator.deviceMemory || 8);
+      const cores = (navigator.hardwareConcurrency || 8);
+      const low = prefersReduced || coarsePointer || deviceMemory <= 4 || cores <= 4;
+      return { low: !!low };
+    })();
+    /* -- Lens flare follow -- */
+    (function(){
+      const root = document.documentElement;
+      if (PERF.low) { return; }
+      let mx = window.innerWidth/2, my = window.innerHeight/3;
+      window.addEventListener('mousemove', (e)=>{ mx = e.clientX; my = e.clientY; }, {passive:true});
+      function step(){
+        root.style.setProperty('--lens-x', mx + 'px');
+        root.style.setProperty('--lens-y', my + 'px');
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    })();
+
+    // Scroll-driven color shift (performant)
+    (function(){
+      const root = document.documentElement;
+      let ticking = false;
+      function onScroll(){
+        if(ticking) return; ticking = true;
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+          const docH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+          const p = Math.min(1, Math.max(0, scrollTop / docH));
+          // Stronger hue shift (~ +60deg) for clear, blended change
+          const shift = Math.round(p * 60);
+          root.style.setProperty('--hue-shift', String(shift));
+          root.style.setProperty('--hue-rotate', shift + 'deg');
+          ticking = false;
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+    // CTA confetti burst
+    (function(){
+      const btn = document.getElementById('cta-btn');
+      if(!btn) return;
+      function burst(x, y){
+        const root = document.body;
+        const colors = ['#3D9B4E', '#74C07C', '#2E7A3C', '#000'];
+        for(let i=0;i<16;i++){
+          const piece = document.createElement('span');
+          piece.style.position='fixed';
+          piece.style.left=x+'px'; piece.style.top=y+'px';
+          piece.style.width='6px'; piece.style.height='6px';
+          piece.style.background=colors[i%colors.length];
+          piece.style.border='2px solid #000';
+          piece.style.borderRadius='2px';
+          piece.style.zIndex='9999';
+          root.appendChild(piece);
+          const ang = Math.random()*Math.PI*2;
+          const dist = 80 + Math.random()*80;
+          const dx = Math.cos(ang)*dist;
+          const dy = Math.sin(ang)*dist;
+          const rot = (Math.random()*360-180)+'deg';
+          piece.animate([
+            {transform:'translate(0,0) rotate(0deg)', opacity:1},
+            {transform:`translate(${dx}px, ${dy}px) rotate(${rot})`, opacity:0}
+          ], {duration:900 + Math.random()*400, easing:'cubic-bezier(.22,1,.36,1)'}).onfinish = ()=> piece.remove();
+        }
+      }
+      btn.addEventListener('click', (e)=>{
+        const rect = btn.getBoundingClientRect();
+        burst(rect.left + rect.width/2, rect.top + rect.height/2);
+      });
+    })();
+    /* -- Mouse-tracking perspective logic -- */
+    (function(){
+      if (PERF.low) { return; }
+      const targets = [
+        document.getElementById('hero-img'),
+        ...Array.from(document.querySelectorAll('.card'))
+      ];
+      const strength = 8; // degrees
+      const damp = 0.08;
+      const state = new Map();
+      targets.forEach(el => { if(el) state.set(el, {rx:0, ry:0}); });
+      function apply(el, rx, ry){ el.style.transform = `perspective(900px) translateZ(0) rotateX(${rx}deg) rotateY(${ry}deg)`; }
+      let mx = window.innerWidth/2, my = window.innerHeight/2;
+      window.addEventListener('mousemove', (e)=>{ mx = e.clientX; my = e.clientY; }, {passive:true});
+      function tick(){
+        const cx = window.innerWidth/2; const cy = window.innerHeight/2;
+        const nx = (mx - cx) / cx; // -1..1
+        const ny = (my - cy) / cy; // -1..1
+        state.forEach((s, el) => {
+          const targetRy = -nx * strength;
+          const targetRx = ny * strength;
+          s.rx += (targetRx - s.rx) * damp;
+          s.ry += (targetRy - s.ry) * damp;
+          apply(el, s.rx, s.ry);
+        });
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+
+    /* -- Magnetic button handler -- */
+    (function(){
+      if (PERF.low) { return; }
+      const magnets = [
+        document.getElementById('cta-btn'),
+        ...Array.from(document.querySelectorAll('.icon-btn'))
+      ].filter(Boolean);
+      const radius = 80; // px
+      const strength = 0.22; // pull strength
+      let mx = -1, my = -1;
+      window.addEventListener('mousemove', (e)=>{ mx = e.clientX; my = e.clientY; }, {passive:true});
+      function tick(){
+        const rects = magnets.map(el => ({ el, r: el.getBoundingClientRect() }));
+        rects.forEach(({el, r}) => {
+          const ex = r.left + r.width/2; const ey = r.top + r.height/2;
+          const dx = mx - ex; const dy = my - ey;
+          const dist = Math.hypot(dx, dy);
+          if(dist < radius){
+            const pull = (1 - dist / radius) * strength;
+            el.style.transform = `translate(${(dx*pull).toFixed(2)}px, ${(dy*pull).toFixed(2)}px)`;
+          }else{
+            el.style.transform = '';
+          }
+        });
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+
+    /* -- Custom cursor with lag -- */
+    (function(){
+      if (PERF.low) { return; }
+      const cursor = document.createElement('div');
+      cursor.setAttribute('aria-hidden','true');
+      cursor.style.position='fixed'; cursor.style.left='0'; cursor.style.top='0';
+      cursor.style.width='12px'; cursor.style.height='12px'; cursor.style.borderRadius='50%';
+      cursor.style.background='hsl(calc(var(--hue-base) + var(--hue-shift)) 45% 43%)';
+      cursor.style.boxShadow='0 0 0 2px #000'; cursor.style.zIndex='9999'; cursor.style.pointerEvents='none';
+      cursor.style.transform='translate(-100px, -100px)';
+      document.body.appendChild(cursor);
+      const ring = document.createElement('div');
+      ring.style.position='fixed'; ring.style.left='0'; ring.style.top='0';
+      ring.style.width='28px'; ring.style.height='28px'; ring.style.borderRadius='50%';
+      ring.style.border='2px solid hsl(calc(var(--hue-base) + var(--hue-shift)) 45% 43%)';
+      ring.style.boxShadow='0 0 0 2px #000'; ring.style.zIndex='9998'; ring.style.pointerEvents='none';
+      ring.style.opacity='0'; ring.style.transform='translate(-100px, -100px)';
+      document.body.appendChild(ring);
+      let tx= -100, ty=-100, rx=-100, ry=-100, mx= -100, my= -100;
+      window.addEventListener('mousemove', (e)=>{ mx = e.clientX; my = e.clientY; }, {passive:true});
+      function step(){
+        tx += (mx - tx) * 0.25; ty += (my - ty) * 0.25;
+        rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+        cursor.style.transform = `translate(${tx-6}px, ${ty-6}px)`;
+        ring.style.transform = `translate(${rx-14}px, ${ry-14}px)`;
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      function toggleRing(active){ ring.style.opacity = active ? '1' : '0'; }
+      const activators = Array.from(document.querySelectorAll('a, button'));
+      activators.forEach(el => {
+        el.addEventListener('mouseenter', ()=> toggleRing(true));
+        el.addEventListener('mouseleave', ()=> toggleRing(false));
+      });
+    })();
+    // Reveal on scroll
+    (function(){
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if(!('IntersectionObserver' in window)){
+        els.forEach(el => el.classList.add('show'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // Set floaters to character image
+    (function(){
+      const floaters = [
+        document.getElementById('floater-1'),
+        document.getElementById('floater-2'),
+        document.getElementById('floater-3'),
+        document.getElementById('floater-4')
+      ];
+      floaters.forEach(el => { el.src = 'forg2.png'; });
+    })();
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Copy contract address
+    (function(){
+      const btn = document.getElementById('copy-btn');
+      const textEl = document.getElementById('contract');
+      const sparkRoot = document.getElementById('copy-spark');
+      let timeoutId;
+      btn.addEventListener('click', async () => {
+        const text = textEl.textContent.trim();
+        try{
+          if (navigator.clipboard && window.isSecureContext){
+            await navigator.clipboard.writeText(text);
+          }else{
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          }
+          btn.classList.add('success');
+          const original = btn.textContent;
+          btn.textContent = 'Copied!';
+          // Sparkles
+          try{
+            const N = 10;
+            for(let i=0;i<N;i++){
+              const s = document.createElement('span');
+              const size = 4 + Math.random()*4;
+              s.style.position='absolute';
+              s.style.left='0'; s.style.top='0';
+              s.style.width=size+'px'; s.style.height=size+'px';
+              s.style.borderRadius='50%';
+              s.style.background='var(--forg-green)';
+              s.style.boxShadow='0 0 0 2px #000 inset';
+              s.style.transform=`translate(0,0)`;
+              sparkRoot.appendChild(s);
+              const ang = Math.random()*Math.PI*2;
+              const dist = 18 + Math.random()*22;
+              const dx = Math.cos(ang)*dist;
+              const dy = Math.sin(ang)*dist;
+              s.animate([
+                {transform:'translate(0,0)', opacity:1},
+                {transform:`translate(${dx}px, ${dy}px)`, opacity:0}
+              ], {duration:600 + Math.random()*300, easing:'cubic-bezier(.22,1,.36,1)'}).onfinish = ()=> s.remove();
+            }
+          }catch(err){}
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => { btn.classList.remove('success'); btn.textContent = original; }, 1400);
+        }catch(e){ btn.textContent = 'Copy failed'; btn.classList.remove('success'); }
+      });
+    })();
+
+    // Floating FORGs logic (smooth drift w/ requestAnimationFrame)
+    (function(){
+      const ids = ['floater-1','floater-2','floater-3','floater-4'];
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const actors = ids.map((id, i) => {
+        const el = document.getElementById(id);
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 80;
+        const x = Math.random()*(vw - margin*2) + margin;
+        const y = Math.random()*(vh - margin*2) + margin;
+        const speed = 0.03 + Math.random()*0.05; // px/ms
+        const angle = Math.random()*Math.PI*2;
+        const rotSpeed = (Math.random() * 0.02 - 0.01); // deg per ms
+        const bobAmp = 6 + Math.random()*6;
+        const bobSpeed = 0.001 + Math.random()*0.0015; // Hz-ish
+        const scale = 0.9 + Math.random()*0.25;
+        el.style.position = 'absolute';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        el.dataset.scale = String(scale);
+        return { el, x, y, speed, angle, rot:0, rotSpeed, bobAmp, bobSpeed, t: Math.random()*10000 };
+      });
+
+      let last = performance.now();
+      function tick(now){
+        const dt = now - last; last = now;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 60;
+        for(const a of actors){
+          a.t += dt;
+          // Drift
+          a.x += Math.cos(a.angle) * a.speed * dt;
+          a.y += Math.sin(a.angle) * a.speed * dt;
+          // Boundary steer
+          if(a.x < margin || a.x > vw - margin) a.angle = Math.PI - a.angle;
+          if(a.y < margin || a.y > vh - margin) a.angle = -a.angle;
+          // Rotation + bob
+          a.rot += a.rotSpeed * dt;
+          const bob = Math.sin(a.t * a.bobSpeed * 2*Math.PI) * a.bobAmp;
+
+          a.el.style.left = a.x + 'px';
+          a.el.style.top = (a.y + bob) + 'px';
+          const scale = Number(a.el.dataset.scale) || 1;
+          a.el.style.transform = `translateZ(0) scale(${scale}) rotate(${a.rot}deg)`;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      // Keep them inside on resize
+      window.addEventListener('resize', () => {
+        const vw = window.innerWidth; const vh = window.innerHeight; const margin = 80;
+        actors.forEach(a => {
+          a.x = Math.max(margin, Math.min(vw - margin, a.x));
+          a.y = Math.max(margin, Math.min(vh - margin, a.y));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
